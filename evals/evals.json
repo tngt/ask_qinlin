@@ -1,0 +1,92 @@
+{
+  "skill_name": "ask_qinlin",
+  "evals": [
+    {
+      "id": 1,
+      "name": "eval-立项评估",
+      "prompt": "我们想给 CoThink 平台的知识库增加一个"问答历史收藏"功能，可以把满意的回答保存下来，方便后续检索复用。代码仓库在 /Users/xutongtong/src_code/cc/yanshi/cothink-plat-service。这个功能做起来大概多大工作量？",
+      "expected_output": "路由识别为A立项评估；扫描后端模块给出改动涉及哪几层（Controller/Service/Repository/DB）；识别是否有可复用的接口；给出工作量量级（小/中/大）+理由；列出潜在风险；给出可行性结论",
+      "files": [],
+      "assertions": [
+        {
+          "id": "route-label",
+          "text": "输出中明确标注了路由（包含「路由」和「立项」或「A」等关键词）"
+        },
+        {
+          "id": "layers-analysis",
+          "text": "分析了改动涉及的代码层次（至少提到 Controller/Service/Repository/DB 中的两层）"
+        },
+        {
+          "id": "effort-level",
+          "text": "给出了工作量量级（包含「小」「中」「大」「超大」等明确量级词）"
+        },
+        {
+          "id": "feasibility-verdict",
+          "text": "给出了可行性结论（✅建议推进 / ⚠️谨慎评估 / ❌建议重新设计）"
+        },
+        {
+          "id": "business-language",
+          "text": "用业务语言描述结论，没有大段代码粘贴（代码引用不超过3行）"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "eval-现状查询",
+      "prompt": "CoThink 里有没有用户权限管理？我想知道现在是不是有角色的概念，比如管理员和普通用户权限不同。代码仓库在 /Users/xutongtong/src_code/cc/yanshi/cothink-plat-service。",
+      "expected_output": "路由识别为B现状查询；定位权限相关模块和接口；说明是否存在角色概念以及具体实现；指出关键字段/枚举值；列出权限边界和已知约束；用业务语言而非代码堆砌",
+      "files": [],
+      "assertions": [
+        {
+          "id": "route-label",
+          "text": "输出中明确标注了路由（包含「路由」和「现状」或「B」等关键词）"
+        },
+        {
+          "id": "yes-or-no-answer",
+          "text": "明确回答了「是否存在角色/权限概念」（有/没有，不含糊）"
+        },
+        {
+          "id": "specific-location",
+          "text": "指出了权限相关实现的具体位置（模块名/类名/接口名至少一个）"
+        },
+        {
+          "id": "constraint-or-boundary",
+          "text": "提到了权限边界、约束条件或异常场景（如：某角色不能做什么）"
+        },
+        {
+          "id": "business-language",
+          "text": "用业务语言描述结论，没有大段代码粘贴（代码引用不超过3行）"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "eval-变更评估",
+      "prompt": "我们想把知识库的文件上传大小限制从 20MB 改成 100MB，这个改动影响哪些地方？代码仓库在 /Users/xutongtong/src_code/cc/yanshi/cothink-plat-service。",
+      "expected_output": "路由识别为E变更评估；定位文件上传相关代码；向上追溯哪些接口/调用方受影响；向下追溯依赖（存储/配置等）；给出改动量级（配置级/接口级/架构级）；识别联动风险；判断是否需要配置同步",
+      "files": [],
+      "assertions": [
+        {
+          "id": "route-label",
+          "text": "输出中明确标注了路由（包含「路由」和「变更」或「E」等关键词）"
+        },
+        {
+          "id": "change-location",
+          "text": "定位到了文件上传相关代码的具体位置（配置项/类名/接口名至少一个）"
+        },
+        {
+          "id": "change-level",
+          "text": "给出了改动量级（包含「配置级」「接口级」「架构级」等明确量级词）"
+        },
+        {
+          "id": "upstream-downstream",
+          "text": "同时提到了上游影响（调用方/前端/接口）和下游影响（存储/nginx/配置等）中的至少一个"
+        },
+        {
+          "id": "ripple-risk",
+          "text": "识别了至少一个联动风险（如：前端限制/nginx配置/存储容量/其他服务同步修改等）"
+        }
+      ]
+    }
+  ]
+}
